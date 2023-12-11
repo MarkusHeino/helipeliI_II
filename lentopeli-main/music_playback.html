@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title>Custom Music Player</title> -->
+</head>
+<body>
+
+<audio id="musicPlayer" controls>
+    <source src="path/to/your/music.mp3" type="audio/mp3">
+</audio>
+
+<script>
+    var audioPlayer = document.getElementById("musicPlayer");
+
+    // aloittaa soiton heti kun sivu ladataan
+    audioPlayer.play();
+
+    // You can also add event listeners to respond to playback events
+    //audioPlayer.addEventListener("ended", function() {
+        // funktio, joka tajuaa jos raita päättyy (en tiedä onko tarpeen?)
+
+    });
+</script>
+
+</body>
+</html>
