@@ -1,0 +1,49 @@
+<audio id="musicPlayer" controls>
+    <source src="music/vaporwave2.mp3" type="audio/mp3">
+</audio>
+
+<button id="playPauseButton">Play</button>
+
+<script>
+    let audioPlayer = document.getElementById("musicPlayer");
+    let playPauseButton = document.getElementById("playPauseButton");
+
+    let currentTrackIndex = 0;
+    let tracks = [
+        "music/vaporwave2.mp3",
+    ];
+
+    // eka raita tai soittolista lähtee tosta
+    audioPlayer.src = tracks[currentTrackIndex];
+
+    // funktio, joka lisää soittimeen klikattavan pausenapin
+    playPauseButton.addEventListener("click", function() {
+        if (audioPlayer.paused) {
+            audioPlayer.play();
+            playPauseButton.textContent = "Pause";
+        } else {
+            audioPlayer.pause();
+            playPauseButton.textContent = "Play";
+        }
+    });
+
+    // soitin ymmärtää milloin raita päättyy ja looppaa raidan alkuun
+    audioPlayer.addEventListener("ended", function() {
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+
+        // hakee seuraavaa trackia eli looppaa alkuun
+        audioPlayer.src = tracks[currentTrackIndex];
+
+        // crossfade JOKA EI TOIMI P3RK3LES!
+        audioPlayer.volume = 0;
+        audioPlayer.play();
+
+        let fadeInterval = setInterval(function() {
+            audioPlayer.volume += 0.05;  //faden nopeus
+            if (audioPlayer.volume >= 1) {
+                audioPlayer.volume = 1;
+                clearInterval(fadeInterval);
+            }
+        }, 250);
+    });
+</script>

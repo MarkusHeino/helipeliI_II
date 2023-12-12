@@ -1,0 +1,52 @@
+<audio id="musicPlayer" controls>
+    <source src="music/vaporwave2.mp3" type="audio/mp3">
+</audio>
+
+<button id="playPauseButton">Play</button>
+
+<script>
+    let audioPlayer = document.getElementById("musicPlayer");
+    let playPauseButton = document.getElementById("playPauseButton");
+
+    let currentTrackIndex = 0;
+    let tracks = [
+        "music/vaporwave2.mp3",
+        // Add more paths for additional tracks if needed
+    ];
+
+    // Set the initial track
+    audioPlayer.src = tracks[currentTrackIndex];
+
+    // Function to toggle play/pause on button click
+    playPauseButton.addEventListener("click", function() {
+        if (audioPlayer.paused) {
+            audioPlayer.play();
+            playPauseButton.textContent = "Pause";
+        } else {
+            audioPlayer.pause();
+            playPauseButton.textContent = "Play";
+        }
+    });
+
+    // Add event listener for the end of the track
+    audioPlayer.addEventListener("ended", function() {
+        // Increment the track index and loop if necessary
+        currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+
+        // Set the next track
+        audioPlayer.src = tracks[currentTrackIndex];
+
+        // Gradually lower the volume in the last three seconds
+        let fadeOutStart = audioPlayer.duration - 3;
+        let fadeOutInterval = setInterval(function() {
+            if (audioPlayer.currentTime >= fadeOutStart) {
+                audioPlayer.volume = Math.max(0, audioPlayer.volume - 0.01);  // Adjust the decrement for a smoother or faster fade
+            }
+        }, 50); // Adjust the interval as needed for a smoother or faster fade
+
+        // Set the time to start bringing the volume back up (2 seconds after the loop)
+        setTimeout(function() {
+            audioPlayer.volume = 1;  // Immediately set the volume back to full
+        }, 2000);
+    });
+</script>

@@ -2,9 +2,7 @@
 
 var audioPlayer = document.getElementById("musicPlayer");
 var playlist = [
-    "path/to/your/track1.mp3",
-    "path/to/your/track2.mp3",
-    "path/to/your/track3.mp3"
+    "path/to/your/track1.mp3"
     // soittolista
 ];
 var currentTrackIndex = 0;
